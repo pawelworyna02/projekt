@@ -3,50 +3,52 @@ import matplotlib.pyplot as plt
 import numpy as np
 import requests
 
-def generuj_histogram(tekst, litery_wlasne=None):
-    histogram = {}
-    for znak in tekst:
-        if znak.isalpha() and (not litery_wlasne or znak.lower() in litery_wlasne):
-            znak = znak.lower()
-            if znak in histogram:
-                histogram[znak] += 1
+
+def gEnErUj_hIsToGrAm(tekst, lItErY_wLaSnE=None):
+    hIsToGrAm = {}
+    for znAk in tekst:
+        if znAk.isalpha() and (not lItErY_wLaSnE or znAk.lower() in lItErY_wLaSnE):
+            znAk = znAk.lower()
+            if znAk in hIsToGrAm:
+                hIsToGrAm[znAk] += 1
+
             else:
-                histogram[znak] = 1
-    return histogram
+                hIsToGrAm[znAk] = 1
+    return hIsToGrAm
 
-def zapisz_histogram_jako_obraz(histogram, nazwa_pliku):
-    litery = list(histogram.keys())
-    ilosci = list(histogram.values())
+def zApIsZ_hIsToGrAm_jAkO_oBrAz(hIsToGrAm, nAzWa_PlIkU):
+    lItErY = list(hIsToGrAm.keys())
+    iLoScI = list(hIsToGrAm.values())
 
-    x = np.arange(len(litery))
-    plt.bar(x, ilosci)
-    plt.xticks(x, litery)
+    x = np.arange(len(lItErY))
+    plt.bar(x, iLoScI)
+    plt.xticks(x, lItErY)
     plt.xlabel('Litery')
     plt.ylabel('Częstotliwość')
     plt.title('Histogram Częstotliwości Liter')
-    plt.savefig(nazwa_pliku, format='png')
+    plt.savefig(nAzWa_PlIkU, format='png')
 
-def generuj_histogram_z_tekstu(tekst, litery_wlasne=None, tytul="Histogram Częstotliwości Liter"):
-    histogram = generuj_histogram(tekst, litery_wlasne)
+def gEnErUj_hIsToGrAm_z_tEkStU(tekst, lItErY_wLaSnE=None, tYtUl="Histogram Częstotliwości Liter"):
+    hIsToGrAm = gEnErUj_hIsToGrAm(tekst, lItErY_wLaSnE)
 
-    for znak, ilosc in histogram.items():
-        print(f"{znak}: {ilosc}")
+    for znAk, iLoSc in hIsToGrAm.items():
+        print(f"{znAk}: {iLoSc}")
 
-    zapisz_histogram_jako_obraz(histogram, f"{tytul}_histogram.png")
+    zApIsZ_hIsToGrAm_jAkO_oBrAz(hIsToGrAm, f"{tYtUl}_histogram.png")
 
-def pobierz_tekst_z_pliku(sciezka_pliku):
-    with open(sciezka_pliku, 'r') as plik:
-        return plik.read()
+def pObIeRz_tEkSt_z_PlIkU(sCiEzKa_PlIkU):
+    with open(sCiEzKa_PlIkU, 'r') as pLiK:
+        return pLiK.read()
 
-def pobierz_tekst_z_url(url):
-    odpowiedz = requests.get(url)
-    if odpowiedz.status_code == 200:
-        return odpowiedz.text
+def pObIeRz_tEkSt_z_UrL(url):
+    rEsPoNdSe = requests.get(url)
+    if rEsPoNdSe.status_code == 200:
+        return rEsPoNdSe.text
     else:
         print("Nie udało się pobrać tekstu z URL.")
         return ""
 
-def main():
+def mAiN():
     while True:
         print("Menu:")
         print("1. Generuj histogram z tekstu wprowadzonego z klawiatury.")
@@ -54,34 +56,33 @@ def main():
         print("3. Generuj histogram z tekstu pobranego z URL.")
         print("4. Wyjście")
 
-        wybor = input("Wybierz opcję: ")
+        wYbOr = input("Wybierz opcję: ")
 
-
-        if wybor == "1":
-            litery_wlasne = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
-            litery_wlasne = litery_wlasne.split(',') if litery_wlasne else None
+        if wYbOr == "1":
+            lItErY_wLaSnE = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
+            lItErY_wLaSnE = lItErY_wLaSnE.split(',') if lItErY_wLaSnE else None
             tekst = input("Wprowadź tekst: ")
-            generuj_histogram_z_tekstu(tekst, litery_wlasne, "WejścieUżytkownika")
-        elif wybor == "2":
-            katalog_danych = "katalog"
-            for nazwa_pliku in os.listdir(katalog_danych):
-                if nazwa_pliku.endswith(".txt"):
-                    sciezka_pliku = os.path.join(katalog_danych, nazwa_pliku)
-                    litery_wlasne = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
-                    litery_wlasne = litery_wlasne.split(',') if litery_wlasne else None
-                    tekst = pobierz_tekst_z_pliku(sciezka_pliku)
-                    generuj_histogram_z_tekstu(tekst, litery_wlasne, nazwa_pliku)
-        elif wybor == "3":
+            gEnErUj_hIsToGrAm_z_tEkStU(tekst, lItErY_wLaSnE, "WejścieUżytkownika")
+        elif wYbOr == "2":
+            kAtAlOg_dAnYcH = "katalog"
+            for nAzWa_PlIkU in os.listdir(kAtAlOg_dAnYcH):
+                if nAzWa_PlIkU.endswith(".txt"):
+                    sCiEzKa_PlIkU = os.path.join(kAtAlOg_dAnYcH, nAzWa_PlIkU)
+                    lItErY_wLaSnE = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
+                    lItErY_wLaSnE = lItErY_wLaSnE.split(',') if lItErY_wLaSnE else None
+                    tekst = pObIeRz_tEkSt_z_PlIkU(sCiEzKa_PlIkU)
+                    gEnErUj_hIsToGrAm_z_tEkStU(tekst, lItErY_wLaSnE, nAzWa_PlIkU)
+        elif wYbOr == "3":
             url = input("Podaj URL: ")
-            litery_wlasne = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
-            litery_wlasne = litery_wlasne.split(',') if litery_wlasne else None
-            tekst = pobierz_tekst_z_url(url)
-            generuj_histogram_z_tekstu(tekst, litery_wlasne, "TekstZURL")
-        elif wybor == "4":
+            lItErY_wLaSnE = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
+            lItErY_wLaSnE = lItErY_wLaSnE.split(',') if lItErY_wLaSnE else None
+            tekst = pObIeRz_tEkSt_z_UrL(url)
+            gEnErUj_hIsToGrAm_z_tEkStU(tekst, lItErY_wLaSnE, "TekstZURL")
+        elif wYbOr == "4":
             break
         else:
             print("Nieprawidłowy wybór. Wybierz opcję od 1 do 4.")
 
 
 if __name__ == "__main__":
-    main()
+    mAiN()
