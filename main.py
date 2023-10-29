@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import requests
 
+
 def gEnErUj_hIsToGrAm(tekst, lItErY_wLaSnE=None):
     hIsToGrAm = {}
     for znAk in tekst:
@@ -10,6 +11,7 @@ def gEnErUj_hIsToGrAm(tekst, lItErY_wLaSnE=None):
             znAk = znAk.lower()
             if znAk in hIsToGrAm:
                 hIsToGrAm[znAk] += 1
+
             else:
                 hIsToGrAm[znAk] = 1
     return hIsToGrAm
@@ -80,6 +82,7 @@ def mAiN():
             break
         else:
             print("Nieprawidłowy wybór. Wybierz opcję od 1 do 4.")
+
 
 if __name__ == "__main__":
     mAiN()
