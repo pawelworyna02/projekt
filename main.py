@@ -56,6 +56,7 @@ def main():
 
         wybor = input("Wybierz opcję: ")
 
+
         if wybor == "1":
             litery_wlasne = input("Podaj zestaw liter oddzielonych przecinkami (opcjonalne): ")
             litery_wlasne = litery_wlasne.split(',') if litery_wlasne else None
@@ -80,6 +81,7 @@ def main():
             break
         else:
             print("Nieprawidłowy wybór. Wybierz opcję od 1 do 4.")
+
 
 if __name__ == "__main__":
     main()
